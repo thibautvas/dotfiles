@@ -1,0 +1,16 @@
+# os files
+.DS_Store
+
+# virtual environments
+.venv/
+.venv2/
+
+# packaging files
+*.egg-info/
+
+# temporary files
+temp.*
+temp/
+
+# backup files
+*.bak

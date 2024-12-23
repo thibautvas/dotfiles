@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [[ -n "$1" ]]; then
+  target=$(realpath "$1")
+else
+  target=$(
+    fd --base-directory "$RD" --type directory |
+    awk -F '/' '{printf "%-20s # %s\n", $(NF-1), $0}' |
+    fzf --reverse --height 10 --preview "tree -CaL 1 $RD/{3}" |
+    sed "s:^.*# \(.*\)/:$RD/\1:"
+  )
+fi
+project=$(git -C "$target" rev-parse --show-toplevel 2>/dev/null)
+title=$(basename "${project:-$target}" | sed 's/\.//g')
+
+if ! tmux has-session -t "$title" 2>/dev/null; then
+  tmux new-session -d -s "$title" -c "$target"
+    if [[ -n "$project" ]]; then
+      tmux new-window -t "$title":0 -c "$target"
+      tmux send-keys -t "$title":0 'lazygit' Enter
+      tmux send-keys -t "$title":1 "cd $project" Enter
+    fi
+  tmux new-window -t "$title":2 -c "$target"
+  tmux send-keys -t "$title":2 'nvim +Telescope\ find_files' Enter
+fi
+
+if [[ "$2" == d* ]]; then
+  return 0
+elif [[ -z "$title" ]]; then
+  return 1
+elif [[ -n "$TMUX" ]] ; then
+  tmux switch-client -t "$title"
+else
+  tmux attach-session -t "$title"
+fi

@@ -1,0 +1,152 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    // avoid having tab do 100 different things
+    {
+        "key": "tab",
+        "command": "-editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    // use ctrl+y instead for inline suggestions (eg github copilot)
+    {
+        "key": "ctrl+y",
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus || cursorAtInlineEdit && inlineEditIsVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus || cursorAtInlineEdit && inlineEditIsVisible && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus"
+    },
+
+    // avoid having enter do 100 different things
+    {
+        "key": "enter",
+        "command": "-acceptSelectedSuggestion",
+        "when": "acceptSuggestionOnEnter && suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && suggestionMakesTextEdit && textInputFocus"
+    },
+
+    // toggle source control
+    {
+        "key": "shift+cmd+g",
+        "command": "workbench.view.scm",
+        "when": "workbench.scm.active"
+    },
+
+    // toggle search in editor
+    {
+        "key": "ctrl+/",
+        "command": "search.action.openNewEditor"
+    },
+
+    // editor: use splits
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.joinAllGroups"
+    },
+
+    // editor & terminal: switch focus
+    {
+        "key": "cmd+4",
+        "command": "workbench.action.terminal.focus"
+    },
+    {
+        "key": "cmd+4",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
+
+    // editor: restrict zoom to editor font when focused
+    {
+        "key": "cmd+=",
+        "command": "editor.action.fontZoomIn",
+        "when": "editorFocus"
+    },
+    {
+        "key": "cmd+-",
+        "command": "editor.action.fontZoomReset",
+        "when": "editorFocus"
+    },
+
+    // terminal: restrict zoom to terminal font when focused
+    {
+        "key": "cmd+=",
+        "command": "workbench.action.terminal.fontZoomIn",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "cmd+-",
+        "command": "workbench.action.terminal.fontZoomReset",
+        "when": "terminalFocus"
+    },
+
+    // terminal: maximize
+    {
+        "key": "cmd+l",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "terminalFocus"
+    },
+
+    // terminal: kill
+    {
+        "key": "cmd+w",
+        "command": "workbench.action.terminal.kill",
+        "when": "terminalFocus"
+    },
+
+    // notebook: insert cell below
+    {
+        "key": "ctrl+shift+j",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "notebook.cell.insertCodeCellBelow",
+                "notebook.centerActiveCell"
+            ]
+        },
+        "when": "notebookEditorFocused"
+    },
+
+    // notebook: navigate cells
+    {
+        "key": "ctrl+j",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "notebook.focusNextEditor",
+                "notebook.centerActiveCell"
+            ]
+        },
+        "when": "notebookEditorFocused"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "notebook.focusPreviousEditor",
+                "notebook.centerActiveCell"
+            ]
+        },
+        "when": "notebookEditorFocused"
+    },
+
+    // notebook: clear all outputs
+    {
+        "key": "ctrl+; ctrl+l",
+        "command": "notebook.clearAllCellsOutputs",
+        "when": "notebookEditorFocused"
+    },
+
+    // jupyter: restart kernel
+    {
+        "key": "ctrl+; ctrl+k",
+        "command": "jupyter.restartkernel",
+        "when": "notebookEditorFocused"
+    },
+
+    // sqltools: run current query
+    {
+        "key": "cmd+e cmd+f",
+        "command": "sqltools.executeCurrentQuery",
+        "when": "editorTextFocus && editorLangId == 'sql' && !config.sqltools.disableChordKeyBindings"
+    },
+]

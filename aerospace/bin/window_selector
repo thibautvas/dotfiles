@@ -1,0 +1,10 @@
+#!/bin/bash
+# open ephemeral window to sitch focus
+
+alacritty -o 'window.dimensions={ columns = 122, lines = 10 }' -T 'Window Selector' -e bash -c '
+aerospace list-windows --all \
+  --format "%{workspace}%{right-padding} | %{window-id}%{right-padding} | %{app-name}%{right-padding} | %{window-title}" \
+  | grep -v "Window Selector" \
+  | fzf --border --layout=reverse --bind \
+  "enter:execute(bash -c \"aerospace move-node-to-workspace {1} 2>/dev/null && aerospace focus --window-id {3}\")+abort"
+'
