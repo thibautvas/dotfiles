@@ -1,0 +1,5 @@
+[user]
+	name = thibautvas
+	email = thibaut.vas@gmail.com
+[init]
+	defaultBranch = "main"
