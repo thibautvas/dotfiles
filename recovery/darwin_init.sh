@@ -18,7 +18,7 @@ config_loc=$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)
 mkdir -p "$HOME/.config"
 config_dirs=(
   "aerospace"
-  "alacritty"
+  "ghostty"
   "git"
   "nvim"
   "shell"
@@ -51,9 +51,8 @@ formulae=(
 
 casks=(
   "nikitabobko/tap/aerospace"
-  "alacritty"
   "arc"
-  "hiddenbar"
+  "ghostty"
   "visual-studio-code"
 )
 

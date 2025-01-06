@@ -26,11 +26,11 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 │       ├── move_arc
 │       ├── tmux_session_selector
 │       └── window_selector
-├── alacritty
-│   └── alacritty.toml
 ├── code
 │   ├── keybindings.json
 │   └── settings.json
+├── ghostty
+│   └── config
 ├── git
 │   ├── config
 │   └── ignore
