@@ -12,6 +12,12 @@ return {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if not client then return end
 
+        local opts = { buffer = args.buf, noremap = true, silent = true }
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "gn", vim.lsp.buf.rename, opts)
+
         if vim.bo.filetype == "python" then
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = args.buf,
