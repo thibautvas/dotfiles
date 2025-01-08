@@ -63,8 +63,9 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 └── tmux
     ├── bin
     │   ├── attach_session
+    │   ├── bind_j
     │   └── new_session
     └── tmux.conf
 
-15 directories, 33 files
+15 directories, 34 files
 ```

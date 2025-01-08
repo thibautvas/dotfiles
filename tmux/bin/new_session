@@ -9,7 +9,9 @@ else
     fzf --reverse --height 10 --preview "tree -CaL 1 $RD/{3}" |
     sed "s:^.*# \(.*\)/:$RD/\1:"
   )
+  [[ -z "$target" ]] && exit 1
 fi
+
 project=$(git -C "$target" rev-parse --show-toplevel 2>/dev/null)
 title=$(basename "${project:-$target}" | sed 's/\.//g')
 
@@ -25,9 +27,7 @@ if ! tmux has-session -t "$title" 2>/dev/null; then
 fi
 
 if [[ "$2" == d* ]]; then
-  return 0
-elif [[ -z "$title" ]]; then
-  return 1
+  exit 0
 elif [[ -n "$TMUX" ]] ; then
   tmux switch-client -t "$title"
 else
