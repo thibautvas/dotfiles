@@ -1,22 +1,28 @@
 #!/bin/bash
-# open ephemeral window to attach a tmux session
 
-alacritty -o 'window.dimensions={ columns = 122, lines = 10 }' -T 'Session Selector' -e bash -c '
-local_sessions=$(tmux list-sessions 2>/dev/null)
-remote_sessions=$(cat $HOME/.cache/bcache.txt 2>/dev/null)
-
-{ echo "$local_sessions" | sed "s/.*/\x1b[32m&/"; \
-  echo "$remote_sessions" | sed "s/.*/\x1b[35m&/"; } \
-  | fzf --ansi --border --layout=reverse --bind \
-  "enter:execute(bash -c \"echo {1} > /tmp/tmux_session.txt\")+abort"
-'
-
-if [[ -f /tmp/tmux_session.txt ]] ; then
-  session_name=$(cat /tmp/tmux_session.txt | cut -d : -f1)
-  rm /tmp/tmux_session.txt
-  if tmux list-sessions | grep -q "$session_name"; then
-    alacritty -T "$session_name" -e tmux attach-session -t "$session_name"
-  else
-    alacritty -T "ssh:$session_name" -e ssh mozart -t "tmux attach-session -t $session_name"
-  fi
+if $(aerospace list-windows --all --format '%{app-bundle-id}' | grep -q 'com.mitchellh.ghostty'); then
+  osascript -e '
+    tell application "Ghostty"
+      activate
+	delay 0.1
+        tell application "System Events"
+          keystroke "d" using {command down}
+	  delay 0.1
+          keystroke "$HOME/.config/tmux/bin/attach_session"
+          key code 36
+        end tell
+    end tell
+  '
+else
+  open -a 'Ghostty'
+  osascript -e '
+    tell application "Ghostty"
+      activate
+      delay 0.1
+        tell application "System Events"
+          keystroke "$HOME/.config/tmux/bin/attach_session"
+          key code 36
+        end tell
+    end tell
+  '
 fi

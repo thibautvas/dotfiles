@@ -62,8 +62,8 @@ alias gcd='direct_cd "${$(git rev-parse --show-toplevel 2>/dev/null):-$RD/git}"'
 
 # tmux
 alias tns="$HOME/.config/tmux/bin/new_session"
+alias tas="$HOME/.config/tmux/bin/attach_session"
 alias tls='tmux list-sessions'
-alias tas='tmux attach-session'
 alias tks='tmux kill-session'
 
 # neovim

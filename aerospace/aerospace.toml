@@ -66,7 +66,7 @@ alt-cmd-ctrl-shift-g = 'exec-and-forget $HOME/.config/aerospace/bin/window_selec
 
 # Switch focus by app
 alt-cmd-ctrl-shift-f = 'exec-and-forget open /Applications/Arc.app'
-alt-cmd-ctrl-shift-d = 'exec-and-forget open /Applications/Alacritty.app'
+alt-cmd-ctrl-shift-d = 'exec-and-forget open /Applications/Ghostty.app'
 alt-cmd-ctrl-shift-s = 'exec-and-forget open /Applications/Slack.app'
 alt-cmd-ctrl-shift-a = 'exec-and-forget open "/Applications/Visual Studio Code.app"'
 
@@ -120,11 +120,6 @@ run = 'layout floating'
 check-further-callbacks = false
 
 [[on-window-detected]]
-if.window-title-regex-substring = 'Session Selector'
-run = 'layout floating'
-check-further-callbacks = false
-
-[[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = 'layout floating'
 
@@ -134,11 +129,7 @@ if.app-id = 'company.thebrowser.Browser' # Arc
 run = 'move-node-to-workspace F'
 
 [[on-window-detected]]
-if.app-id = 'org.alacritty' # Alacritty (app)
-run = 'move-node-to-workspace D'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'alacritty' # Alacritty (cli)
+if.app-id = 'com.mitchellh.ghostty' # Ghostty
 run = 'move-node-to-workspace D'
 
 [[on-window-detected]]
