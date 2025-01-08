@@ -45,11 +45,11 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 │           ├── lazy.lua
 │           ├── options.lua
 │           └── plugins
+│               ├── catppuccin.lua
 │               ├── completion.lua
 │               ├── gitsigns.lua
 │               ├── init.lua
 │               ├── lspconfig.lua
-│               ├── onedark.lua
 │               ├── telescope.lua
 │               └── treesitter.lua
 ├── recovery

@@ -1,6 +1,6 @@
 return {
   -- theme
-  { "navarasu/onedark.nvim", enabled = true },
+  { "catppuccin/nvim", enabled = true },
 
   -- treesitter
   { "nvim-treesitter/nvim-treesitter", enabled = true },

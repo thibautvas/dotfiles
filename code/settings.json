@@ -37,7 +37,7 @@
         "titleBar.inactiveBackground": "#00151599",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "workbench.colorTheme": "One Dark", // https://marketplace.visualstudio.com/items?itemName=mskelton.one-dark-theme
+    "workbench.colorTheme": "Catppuccin Macchiato", // https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc
 
     // Navigate
     "workbench.editor.enablePreview": false, // open files on click
