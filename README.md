@@ -24,8 +24,8 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 │   ├── aerospace.toml
 │   └── bin
 │       ├── move_arc
-│       ├── tmux_session_selector
-│       └── window_selector
+│       ├── restart_aerospace
+│       └── tmux_session_selector
 ├── code
 │   ├── keybindings.json
 │   └── settings.json

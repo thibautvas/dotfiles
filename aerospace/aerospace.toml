@@ -61,19 +61,16 @@ alt-cmd-ctrl-shift-q = [ # make main, up to 4 windows
 alt-cmd-ctrl-shift-tab = 'focus right --boundaries-action wrap-around-the-workspace'
 alt-cmd-ctrl-shift-space = 'focus down --boundaries-action wrap-around-the-workspace'
 
-# Switch focus by window
-alt-cmd-ctrl-shift-g = 'exec-and-forget $HOME/.config/aerospace/bin/window_selector'
-
 # Switch focus by app
-alt-cmd-ctrl-shift-f = 'exec-and-forget open /Applications/Arc.app'
-alt-cmd-ctrl-shift-d = 'exec-and-forget open /Applications/Ghostty.app'
-alt-cmd-ctrl-shift-s = 'exec-and-forget open /Applications/Slack.app'
-alt-cmd-ctrl-shift-a = 'exec-and-forget open "/Applications/Visual Studio Code.app"'
+alt-cmd-ctrl-shift-f = 'exec-and-forget open -a Arc'
+alt-cmd-ctrl-shift-d = 'exec-and-forget open -a Ghostty'
+alt-cmd-ctrl-shift-s = 'exec-and-forget open -a Slack'
+alt-cmd-ctrl-shift-a = 'exec-and-forget open -a "Visual Studio Code"'
 
 # Open other apps and locations
 alt-cmd-ctrl-shift-v = 'exec-and-forget $HOME/.config/aerospace/bin/move_arc D'
 alt-cmd-ctrl-shift-c = 'exec-and-forget $HOME/.config/aerospace/bin/tmux_session_selector'
-alt-cmd-ctrl-shift-x = 'exec-and-forget open "/Applications/Cisco/Cisco AnyConnect Secure Mobility Client.app"'
+alt-cmd-ctrl-shift-x = 'exec-and-forget open -a "Cisco Secure Client"'
 alt-cmd-ctrl-shift-z = 'exec-and-forget code $HOME/repos/local/tax-material'
 
 # Navigate workspaces
@@ -95,7 +92,7 @@ alt-shift-p = 'mode position'
 
 [mode.position.binding]
 esc = ['reload-config', 'mode main'] # reload
-backspace = ['exec-and-forget killall AeroSpace', 'exec-and-forget open /Applications/AeroSpace.app'] # restart
+backspace = 'exec-and-forget $HOME/.config/aerospace/bin/restart_aerospace' # restart
 
 # Switch focus by index
 1 = ['focus --dfs-index 0', 'mode main']
@@ -108,17 +105,16 @@ h = ['move left', 'mode main']
 j = ['move down', 'mode main']
 k = ['move up', 'mode main']
 l = ['move right', 'mode main']
+tab = [
+    'move-node-to-monitor --focus-follows-window --wrap-around next',
+    'mode main',
+]
 
 # Switch layout
 f = ['layout floating tiling', 'mode main']
 v = ['layout vertical horizontal', 'mode main']
 
-# Just float
-[[on-window-detected]]
-if.window-title-regex-substring = 'Window Selector'
-run = 'layout floating'
-check-further-callbacks = false
-
+# Callbacks
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = 'layout floating'
@@ -150,7 +146,7 @@ run = 'move-node-to-workspace S'
 
 # Throw far far away
 [[on-window-detected]]
-if.app-id = 'com.cisco.anyconnect.gui' # VPN
+if.app-id = 'com.cisco.secureclient.gui' # VPN
 run = ['layout floating', 'move-node-to-workspace V']
 
 [[on-window-detected]]

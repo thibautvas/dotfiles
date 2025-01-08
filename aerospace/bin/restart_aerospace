@@ -1,0 +1,4 @@
+#!/bin/bash
+
+killall AeroSpace
+open /Applications/AeroSpace.app
