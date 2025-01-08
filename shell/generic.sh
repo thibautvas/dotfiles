@@ -45,9 +45,9 @@ direct_cd() {
       fd --base-directory "$1" --type directory "^$2" --absolute-path |
       sed -n "${3:-1}p"
     )
-  else 
+  else
     target=$(
-    { echo './'; fd --base-directory "$1" --type directory } |
+    { echo './'; fd --base-directory "$1" --type directory; } |
     awk -F '/' '{printf "%-20s # %s\n", $(NF-1), $0}' |
     fzf --reverse --height 10 --preview "tree -CaL 1 $1/{3}" |
     sed "s:^[^#]*# :$1/:"
@@ -67,7 +67,7 @@ alias tls='tmux list-sessions'
 alias tks='tmux kill-session'
 
 # neovim
-vi () {
+vi() {
   if [[ -n "$1" ]]; then
     nvim "$1"
   else
@@ -76,7 +76,7 @@ vi () {
 }
 
 # vs code
-co () {
+co() {
   code "${1:-$PWD}" # default cwd
 }
 
@@ -87,12 +87,12 @@ alias van="source $RD/.vanilla/bin/activate" # setup-specific
 alias choco="source $RD/.chocolate/bin/activate" # setup-specific
 
 # shell counterpart to vs code's launch.json
-run_module () {
-  pkill -f "$RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70}" # kill existing process, if applicable
+run_module() {
+  pkill -if "python -m $1.main --port 90${2:-70}" # kill existing process, if applicable
   if [[ $(git -C "$RD/git/$1" grep -q 'breakpoint()') ]]; then
-    "$RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70}" # run module in the foreground
+    $RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70} # run module in the foreground
   else
-    "$RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70}" & # run module in the background
+    $RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70} & # run module in the background
   fi
 }
 

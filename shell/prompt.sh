@@ -5,7 +5,7 @@ set_custom_prompt() {
   local active_env
   if [[ -n "$VIRTUAL_ENV" ]]; then
     active_env="(${VIRTUAL_ENV##*/})"
-  elif [[ -z "$SSH_CLIENT" ]]; then
+  elif [[ -z "$IS_SSH" ]]; then
     active_env=$'\u2192'
   else
     active_env=$'\u2133'
@@ -13,9 +13,9 @@ set_custom_prompt() {
 
   # environment color
   local env_color
-  if [[ $exit_status -eq 0 && -z "$SSH_CLIENT" ]]; then # previous command success and local machine
+  if [[ $exit_status -eq 0 && -z "$IS_SSH" ]]; then # previous command success and local machine
     env_color="${GREEN:-green}"
-  elif [[ $exit_status -eq 0 && -n "$SSH_CLIENT" ]]; then # previous command success and remote
+  elif [[ $exit_status -eq 0 && -n "$IS_SSH" ]]; then # previous command success and remote
     env_color="${MAGENTA:-magenta}"
   else # previous command failure
     env_color="${RED:-red}"
@@ -36,6 +36,8 @@ set_custom_prompt() {
   [[ -n "$BASH_VERSION" ]] && PS1="$env_color$active_env $dir_color$active_dir\$ $DEFAULT"
   [[ -n "$ZSH_VERSION" ]] && PS1="%F{$env_color}$active_env%f %F{$dir_color}$active_dir\$%f "
 }
+
+IS_SSH=$(declare -p SSH_CLIENT &>/dev/null && echo "SSH" || echo "")
 
 if [[ -n "$BASH_VERSION" ]]; then
   DEFAULT='\[\e[0m\]'; RED='\[\e[31m\]'; GREEN='\[\e[32m\]'; YELLOW='\[\e[33m\]'; BLUE='\[\e[34m\]'; MAGENTA='\[\e[35m\]'; CYAN='\[\e[36m\]'

@@ -4,7 +4,7 @@
   export PATH="$HOME/.local/bin:$PATH"
 
   # root directory and python default interpreter
-  if [[ -z "$SSH_CLIENT" ]]; then
+  if ! declare -p SSH_CLIENT &>/dev/null; then
     export RD="$HOME/repos"
     export PDI="$RD/.vanilla/bin/python"
   else
