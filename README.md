@@ -47,6 +47,7 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 │           └── plugins
 │               ├── catppuccin.lua
 │               ├── completion.lua
+│               ├── copilot.lua
 │               ├── gitsigns.lua
 │               ├── init.lua
 │               ├── lspconfig.lua
@@ -67,5 +68,5 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
     │   └── new_session
     └── tmux.conf
 
-15 directories, 34 files
+15 directories, 35 files
 ```

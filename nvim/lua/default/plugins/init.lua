@@ -11,6 +11,7 @@ return {
 
   -- completion
   { "saghen/blink.cmp", enabled = true },
+  { "github/copilot.vim", enabled = true },
 
   -- telescope
   { "nvim-telescope/telescope.nvim", enabled = true },

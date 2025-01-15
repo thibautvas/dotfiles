@@ -4,8 +4,25 @@ return {
 
   config = function()
     local capabilities = require("blink.cmp").get_lsp_capabilities()
-    require("lspconfig").pyright.setup { capabilities = capabilities }
-    require("lspconfig").ruff.setup {}
+    local lspconfig = require("lspconfig")
+
+    local get_python_path = function(workspace)
+      local python_bin = lspconfig.util.path.join(workspace, ".venv", "bin", "python")
+      if lspconfig.util.path.is_file(python_bin) then
+        return python_bin
+      end
+      return vim.fn.getenv("PDI")
+    end
+
+    lspconfig.pyright.setup {
+      capabilities = capabilities,
+      on_init = function(client)
+        local workspace = client.config.root_dir
+        client.config.settings.python.pythonPath = get_python_path(workspace)
+      end,
+      root_dir = lspconfig.util.root_pattern(".git", "pyproject.toml", "setup.py", "requirements.txt"),
+    }
+    lspconfig.ruff.setup {}
 
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
@@ -18,7 +35,7 @@ return {
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         vim.keymap.set("n", "gn", vim.lsp.buf.rename, opts)
 
-        if vim.bo.filetype == "python" then
+        if vim.bo.filetype == "python" and client.name == "ruff" then
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = args.buf,
             callback = function()
