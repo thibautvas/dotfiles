@@ -51,20 +51,16 @@
 
     // Python
     "python.terminal.activateEnvironment": false,
-    "python.defaultInterpreterPath": "~/repos/.vanilla/bin/python",
+    "python.defaultInterpreterPath": "~/.local/share/venvs/.vanilla/bin/python",
     "jupyter.kernels.excludePythonEnvironments": [
-        "/usr/bin/python3",
-        "/opt/homebrew/bin/python",
-        "/opt/homebrew/bin/python3",
-        "/opt/homebrew/bin/python3.9",
-        "/opt/homebrew/bin/python3.11",
+        "/usr/bin/python3"
     ],
     "[python]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
             "source.fixAll": "explicit"
-        },
+        }
     },
 
     // Interactive windows
@@ -84,62 +80,4 @@
     "vim.mouseSelectionGoesIntoVisualMode": false,
     "vim.overrideCopy": false,
     "vim.highlightedyank.enable": true,
-    "editor.tokenColorCustomizations": {
-        "[*Light*]": {
-            "textMateRules": [
-                {
-                    "scope": "ref.matchtext",
-                    "settings": {
-                        "foreground": "#000"
-                    }
-                }
-            ]
-        },
-        "[*Dark*]": {
-            "textMateRules": [
-                {
-                    "scope": "ref.matchtext",
-                    "settings": {
-                        "foreground": "#fff"
-                    }
-                }
-            ]
-        },
-        "textMateRules": [
-            {
-                "name": "One Dark italic",
-                "scope": [
-                    "comment",
-                    "entity.other.attribute-name",
-                    "keyword",
-                    "markup.underline.link",
-                    "storage.modifier",
-                    "storage.type",
-                    "string.url",
-                    "variable.language.super",
-                    "variable.language.this"
-                ],
-                "settings": {
-                    "fontStyle": "italic"
-                }
-            },
-            {
-                "name": "One Dark italic reset",
-                "scope": [
-                    "keyword.operator",
-                    "keyword.other.type",
-                    "storage.modifier.import",
-                    "storage.modifier.package",
-                    "storage.type.built-in",
-                    "storage.type.function.arrow",
-                    "storage.type.generic",
-                    "storage.type.java",
-                    "storage.type.primitive"
-                ],
-                "settings": {
-                    "fontStyle": ""
-                }
-            }
-        ]
-    },
 }
