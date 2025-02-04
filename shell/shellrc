@@ -1,15 +1,14 @@
 # > Environment variables >
 
-  # path
-  export PATH="$HOME/.local/bin:$PATH"
-
   # root directory and python default interpreter
   if ! declare -p SSH_CLIENT &>/dev/null; then
+    export PATH="$HOME/.local/bin:$PATH"
     export RD="$HOME/repos"
-    export PDI="$RD/.vanilla/bin/python"
+    export PDI="$HOME/.local/share/venvs/.vanilla/bin/python"
   else
-    export RD="$HOME/sync"
-    export PDI="$RD/.chocolate/bin/python"
+    export PATH="/mnt/nfs$HOME/.local/bin:$PATH"
+    export RD="/mnt/nfs$HOME"
+    export PDI="$HOME/.local/share/venvs/.chocolate/bin/python"
   fi
 
   # mitigate environment differences
@@ -27,5 +26,8 @@
   # aliases and functions
   [[ -f "$HOME/.config/shell/generic.sh" ]] && source "$HOME/.config/shell/generic.sh"
   [[ -f "$HOME/.config/shell/gitflow.sh" ]] && source "$HOME/.config/shell/gitflow.sh"
+
+  # temporary add-ons (git-ignored)
+  [[ -f "$HOME/.config/shell/temp.sh" ]] && source "$HOME/.config/shell/temp.sh" || true
 
 # < Source config <

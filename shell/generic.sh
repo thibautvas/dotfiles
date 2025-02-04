@@ -58,7 +58,7 @@ direct_cd() {
 
 alias dcd="direct_cd $RD"
 alias wcd='direct_cd $PWD'
-alias gcd='direct_cd "${$(git rev-parse --show-toplevel 2>/dev/null):-$RD/git}"'
+alias gcd='direct_cd "$(git rev-parse --show-toplevel 2>/dev/null || echo $RD/git)"'
 
 # tmux
 alias tns="$HOME/.config/tmux/bin/new_session"
@@ -83,13 +83,13 @@ co() {
 # virtual environments
 alias va='source .venv/bin/activate'
 alias da="deactivate"
-alias van="source $RD/.vanilla/bin/activate" # setup-specific
-alias choco="source $RD/.chocolate/bin/activate" # setup-specific
+alias van="source $HOME/.local/share/venvs/.vanilla/bin/activate" # setup-specific
+alias choco="source $HOME/.local/share/venvs/.chocolate/bin/activate" # setup-specific
 
 # shell counterpart to vs code's launch.json
 run_module() {
   pkill -if "python -m $1.main --port 90${2:-70}" # kill existing process, if applicable
-  if [[ $(git -C "$RD/git/$1" grep -q 'breakpoint()') ]]; then
+  if $(git -C "$RD/git/$1" grep -q 'breakpoint()'); then
     $RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70} # run module in the foreground
   else
     $RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70} & # run module in the background
