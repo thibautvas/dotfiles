@@ -1,28 +1,21 @@
 #!/bin/bash
 
-if $(aerospace list-windows --all --format '%{app-bundle-id}' | grep -q 'com.mitchellh.ghostty'); then
+aerospace list-windows --all --format '%{app-bundle-id}' | grep -q 'com.mitchellh.ghostty'
+is_open=$?
+
+open -a 'Ghostty'
+if [[ $is_open -eq 0 ]]; then
   osascript -e '
-    tell application "Ghostty"
-      activate
-	delay 0.1
-        tell application "System Events"
-          keystroke "d" using {command down}
-	  delay 0.1
-          keystroke "$HOME/.config/tmux/bin/attach_session"
-          key code 36
-        end tell
-    end tell
-  '
-else
-  open -a 'Ghostty'
-  osascript -e '
-    tell application "Ghostty"
-      activate
-      delay 0.1
-        tell application "System Events"
-          keystroke "$HOME/.config/tmux/bin/attach_session"
-          key code 36
-        end tell
+    tell application "System Events"
+      keystroke "d" using {command down}
     end tell
   '
 fi
+
+osascript -e '
+  delay 0.2
+  tell application "System Events"
+    keystroke "$HOME/.config/tmux/bin/attach_session"
+    key code 36
+  end tell
+'

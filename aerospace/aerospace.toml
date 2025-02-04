@@ -10,9 +10,6 @@ default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
 accordion-padding = 20
 
-on-focus-changed = 'move-mouse window-lazy-center'
-on-focused-monitor-changed = 'move-mouse window-lazy-center'
-
 [gaps]
 inner.horizontal = [{ monitor.'Built-in Retina Display' = 5 }, 10]
 inner.vertical = [{ monitor.'Built-in Retina Display' = 5 }, 10]
@@ -71,7 +68,7 @@ alt-cmd-ctrl-shift-a = 'exec-and-forget open -a "Visual Studio Code"'
 alt-cmd-ctrl-shift-v = 'exec-and-forget $HOME/.config/aerospace/bin/move_arc D'
 alt-cmd-ctrl-shift-c = 'exec-and-forget $HOME/.config/aerospace/bin/tmux_session_selector'
 alt-cmd-ctrl-shift-x = 'exec-and-forget open -a "Cisco Secure Client"'
-alt-cmd-ctrl-shift-z = 'exec-and-forget code $HOME/repos/local/tax-material'
+alt-cmd-ctrl-shift-z = 'exec-and-forget code $HOME/repos/sandbox/tax-material'
 
 # Navigate workspaces
 alt-f = 'workspace F'
@@ -147,7 +144,7 @@ run = 'move-node-to-workspace S'
 # Throw far far away
 [[on-window-detected]]
 if.app-id = 'com.cisco.secureclient.gui' # VPN
-run = ['layout floating', 'move-node-to-workspace V']
+run = 'move-node-to-workspace V'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Excel' # Excel
