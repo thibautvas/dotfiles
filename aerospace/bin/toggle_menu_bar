@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $(defaults -currentHost read NSGlobalDomain _HIHideMenuBar) -eq 0 ]; then
+  defaults -currentHost write NSGlobalDomain _HIHideMenuBar -int 1
+else
+  defaults -currentHost write NSGlobalDomain _HIHideMenuBar -int 0
+fi
+
+osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to false'

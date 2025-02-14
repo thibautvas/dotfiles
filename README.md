@@ -23,9 +23,10 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 ├── aerospace
 │   ├── aerospace.toml
 │   └── bin
-│       ├── move_arc
+│       ├── move_app
 │       ├── restart_aerospace
-│       └── tmux_session_selector
+│       ├── tmux_session_selector
+│       └── toggle_menu_bar
 ├── code
 │   ├── keybindings.json
 │   └── settings.json
@@ -68,5 +69,5 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
     │   └── new_session
     └── tmux.conf
 
-15 directories, 35 files
+15 directories, 36 files
 ```

@@ -65,7 +65,7 @@ alt-cmd-ctrl-shift-s = 'exec-and-forget open -a Slack'
 alt-cmd-ctrl-shift-a = 'exec-and-forget open -a "Visual Studio Code"'
 
 # Open other apps and locations
-alt-cmd-ctrl-shift-v = 'exec-and-forget $HOME/.config/aerospace/bin/move_arc D'
+alt-cmd-ctrl-shift-v = 'exec-and-forget $HOME/.config/aerospace/bin/move_app Arc D'
 alt-cmd-ctrl-shift-c = 'exec-and-forget $HOME/.config/aerospace/bin/tmux_session_selector'
 alt-cmd-ctrl-shift-x = 'exec-and-forget open -a "Cisco Secure Client"'
 alt-cmd-ctrl-shift-z = 'exec-and-forget code $HOME/repos/sandbox/tax-material'
@@ -83,6 +83,9 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 # Resize windows
 alt-equal = 'resize smart +50'
 alt-minus = 'resize smart -50'
+
+# Miscellaneous
+alt-t = 'exec-and-forget $HOME/.config/aerospace/bin/toggle_menu_bar'
 
 # Layers
 alt-shift-p = 'mode position'

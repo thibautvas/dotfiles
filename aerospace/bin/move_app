@@ -1,0 +1,8 @@
+#!/bin/bash
+# move app $1 window to workspace $2, make main
+
+open -a $1 && \
+  aerospace move-node-to-workspace --focus-follows-window $2 && \
+  aerospace move left && \
+  aerospace move left && \
+  aerospace move left

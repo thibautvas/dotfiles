@@ -1,8 +1,0 @@
-#!/bin/bash
-# move Arc window to workspace $1
-
-open /Applications/Arc.app && \
-  aerospace move-node-to-workspace --focus-follows-window $1 && \
-  aerospace move left && \
-  aerospace move left && \
-  aerospace move left
