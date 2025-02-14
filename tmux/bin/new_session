@@ -20,7 +20,6 @@ if ! tmux has-session -t "$title" 2>/dev/null; then
     if [[ -n "$project" ]]; then
       tmux new-window -t "$title":0 -c "$target"
       tmux send-keys -t "$title":0 'lazygit' Enter
-      tmux send-keys -t "$title":1 "cd $project" Enter
     fi
   tmux new-window -t "$title":2 -c "$target"
   tmux send-keys -t "$title":2 'nvim +Telescope\ find_files' Enter
