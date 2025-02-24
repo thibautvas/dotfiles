@@ -17,7 +17,7 @@ return {
     lspconfig.pyright.setup {
       capabilities = capabilities,
       on_init = function(client)
-        local workspace = client.config.root_dir
+        local workspace = client.config.root_dir or vim.fn.getenv("PWD")
         client.config.settings.python.pythonPath = get_python_path(workspace)
       end,
       root_dir = lspconfig.util.root_pattern(".git", "pyproject.toml", "setup.py", "requirements.txt"),

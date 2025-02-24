@@ -1,15 +1,8 @@
 # > Environment variables >
 
   # root directory and python default interpreter
-  if ! declare -p SSH_CLIENT &>/dev/null; then
-    export PATH="$HOME/.local/bin:$PATH"
-    export RD="$HOME/repos"
-    export PDI="$HOME/.local/share/venvs/.vanilla/bin/python"
-  else
-    export PATH="/mnt/nfs$HOME/.local/bin:$PATH"
-    export RD="/mnt/nfs$HOME"
-    export PDI="$HOME/.local/share/venvs/.chocolate/bin/python"
-  fi
+  declare -p SSH_CLIENT &>/dev/null && export RD="/mnt/nfs$HOME" || export RD="$HOME/repos"
+  export PDI="$HOME/.local/share/venvs/.vanilla/bin/python"
 
   # mitigate environment differences
   [[ "$(uname)" = "Darwin" ]] && export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd' # mimic linux colors on macOS

@@ -87,15 +87,12 @@ alias van="source $HOME/.local/share/venvs/.vanilla/bin/activate" # setup-specif
 alias choco="source $HOME/.local/share/venvs/.chocolate/bin/activate" # setup-specific
 
 # shell counterpart to vs code's launch.json
-run_module() {
-  pkill -if "python -m $1.main --port 90${2:-70}" # kill existing process, if applicable
-  if $(git -C "$RD/git/$1" grep -q 'breakpoint()'); then
-    $RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70} # run module in the foreground
+lm() {
+  local module=$(git rev-parse --show-toplevel | xargs basename)
+  pkill -f ".main --port 90${1:-70}" # kill existing process, if applicable
+  if $(git grep -q 'breakpoint()'); then
+    uv run python -m $module.main --port 90${1:-70} # run module in the foreground
   else
-    $RD/git/$1/.venv/bin/python -m $1.main --port 90${2:-70} & # run module in the background
+    uv run python -m $module.main --port 90${1:-70} & # run module in the background
   fi
 }
-
-alias rmh='run_module harmoney'
-alias rmc='run_module checkmate'
-alias rms='run_module sherlock'

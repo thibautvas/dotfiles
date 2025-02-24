@@ -50,8 +50,6 @@
     "editor.autoClosingBrackets": "never",
 
     // Python
-    "python.terminal.activateEnvironment": false,
-    "python.defaultInterpreterPath": "~/.local/share/venvs/.vanilla/bin/python",
     "jupyter.kernels.excludePythonEnvironments": [
         "/usr/bin/python3"
     ],
