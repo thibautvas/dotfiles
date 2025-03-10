@@ -11,7 +11,7 @@ return {
       if lspconfig.util.path.is_file(python_bin) then
         return python_bin
       end
-      return vim.fn.getenv("PDI")
+      return vim.fn.getenv("HOSTPDI")
     end
 
     lspconfig.pyright.setup {

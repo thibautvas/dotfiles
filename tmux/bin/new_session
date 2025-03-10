@@ -4,10 +4,10 @@ if [[ -n "$1" ]]; then
   target=$(realpath "$1")
 else
   target=$(
-    fd --base-directory "$RD" --type directory |
+    fd --base-directory "$HOSTRD" --type directory |
     awk -F '/' '{printf "%-20s # %s\n", $(NF-1), $0}' |
-    fzf --reverse --height 10 --preview "tree -CaL 1 $RD/{3}" |
-    sed "s:^.*# \(.*\)/:$RD/\1:"
+    fzf --reverse --height 10 --preview "tree -CaL 1 $HOSTRD/{3}" |
+    sed "s:^.*# \(.*\)/:$HOSTRD/\1:"
   )
   [[ -z "$target" ]] && exit 1
 fi

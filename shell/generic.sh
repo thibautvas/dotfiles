@@ -56,9 +56,9 @@ direct_cd() {
   [[ -n "$target" ]] && cd "$target"
 }
 
-alias dcd="direct_cd $RD"
+alias dcd="direct_cd $HOSTRD"
 alias wcd='direct_cd $PWD'
-alias gcd='direct_cd "$(git rev-parse --show-toplevel 2>/dev/null || echo $RD/git)"'
+alias gcd='direct_cd "$(git rev-parse --show-toplevel 2>/dev/null || echo $HOSTRD/git)"'
 
 # tmux
 alias tns="$HOME/.config/tmux/bin/new_session"

@@ -1,27 +1,12 @@
 set_custom_prompt() {
-  local exit_status=$? # previous command exit status
-
-  # active environment
-  local active_env
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    active_env="(${VIRTUAL_ENV##*/})"
-  elif [[ -z "$IS_SSH" ]]; then
-    active_env=$'\u2192'
-  else
-    active_env=$'\u2133'
-  fi
-
-  # environment color
-  local env_color
-  if [[ $exit_status -eq 0 && -z "$IS_SSH" ]]; then # previous command success and local machine
-    env_color="${GREEN:-green}"
-  elif [[ $exit_status -eq 0 && -n "$IS_SSH" ]]; then # previous command success and remote
-    env_color="${MAGENTA:-magenta}"
+  # exit status
+  if [[ $? -eq 0 ]]; then # previous command success
+    local prompt_color="$PROMPTCOLOR"
   else # previous command failure
-    env_color="${RED:-red}"
+    local prompt_color="${RED:-red}"
   fi
 
-  # active directory and color
+  # active directory
   local project branch active_dir dir_color
   if project=$(git rev-parse --show-toplevel 2>/dev/null); then
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
@@ -33,15 +18,14 @@ set_custom_prompt() {
   fi
 
   # render prompt
-  [[ -n "$BASH_VERSION" ]] && PS1="$env_color$active_env $dir_color$active_dir\$ $DEFAULT"
-  [[ -n "$ZSH_VERSION" ]] && PS1="%F{$env_color}$active_env%f %F{$dir_color}$active_dir\$%f "
+  [[ -n "$BASH_VERSION" ]] && PS1="${VIRTUAL_ENV+(${VIRTUAL_ENV##*/}) }$prompt_color[$USER@$(uname -n)] $dir_color$active_dir\$ $DEFAULT"
+  [[ -n "$ZSH_VERSION" ]] && PS1="${VIRTUAL_ENV+(${VIRTUAL_ENV##*/}) }%F{$prompt_color}[$USER@$(uname -n)]%f %F{$dir_color}$active_dir\$%f "
 }
 
-IS_SSH=$(declare -p SSH_CLIENT &>/dev/null && echo "SSH" || echo "")
-
 if [[ -n "$BASH_VERSION" ]]; then
-  DEFAULT='\[\e[0m\]'; RED='\[\e[31m\]'; GREEN='\[\e[32m\]'; YELLOW='\[\e[33m\]'; BLUE='\[\e[34m\]'; MAGENTA='\[\e[35m\]'; CYAN='\[\e[36m\]'
+  DEFAULT='\[\e[0m\]'; RED='\[\e[31m\]'; GREEN='\[\e[32m\]'; YELLOW='\[\e[33m\]'; BLUE='\[\e[34m\]'; MAGENTA='\[\e[35m\]'; CYAN='\[\e[36m\]' ; PROMPTCOLOR=${!HOSTCOLOR}
   PROMPT_COMMAND='set_custom_prompt'
 elif [[ -n "$ZSH_VERSION" ]]; then
+  PROMPTCOLOR=$HOSTCOLOR
   precmd_functions+=('set_custom_prompt')
 fi
