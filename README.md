@@ -35,6 +35,18 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 ├── git
 │   ├── config
 │   └── ignore
+├── hypr
+│   ├── bin
+│   │   ├── battery
+│   │   ├── bluetooth
+│   │   ├── datetime
+│   │   ├── launch
+│   │   ├── launch_alt
+│   │   └── wifi
+│   ├── hypridle.conf
+│   ├── hyprland.conf
+│   ├── hyprlock.conf
+│   └── hyprpaper.conf
 ├── kmonad
 │   └── home_row_mods.kbd
 ├── nvim
@@ -69,5 +81,5 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
     │   └── new_session
     └── tmux.conf
 
-15 directories, 36 files
+17 directories, 46 files
 ```
