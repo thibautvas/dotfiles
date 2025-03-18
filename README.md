@@ -1,5 +1,7 @@
 # dotfiles
 
+Note: as of March 2025 I am starting to transfer most of this configuration to [nix-config](https://github.com/thibautvas/nix-config).
+
 Hi! I use this configuration on my local machine (macOS), as well as on remote machines (linux).
 
 I typically clone this repository in `~/repos/git/dotfiles`, and symlink most of it to `~/.config` (cf. [`./recovery/darwin_init.sh`](recovery/darwin_init.sh)).
