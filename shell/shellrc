@@ -1,13 +1,8 @@
 # > Environment variables >
 
-  # color, root directory, and python default interpreter
-  export HOSTCOLOR='green'
-  export HOSTRD="$HOME/repos"
-  export HOSTPDI="$HOME/.local/share/venvs/.vanilla/bin/python"
-
-  # mitigate environment differences
-  [[ "$(uname)" = "Darwin" ]] && export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd' # mimic linux colors on macOS
-  [[ -n "$ZSH_VERSION" ]] && setopt KSH_ARRAYS # index zsh arrays from 0, to align with bash
+  # color, root directory
+  export HOST_COLOR='GREEN'
+  export HOST_PROJECT_DIR="$HOME/repos"
 
 # < Environment variables <
 

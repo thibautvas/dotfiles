@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [[ $(tmux list-panes | wc -l) -gt 1 ]]; then
-  tmux select-pane -D
-else
-  tmux split-window -v -p 25
-fi

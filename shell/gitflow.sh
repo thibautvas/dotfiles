@@ -23,7 +23,9 @@ alias grs='git status --short .' # from cwd
 
 # log
 gl() { # readable log with length $1, default 5
-  git log --graph --oneline --max-count=${1:-5} --pretty=format:'%C(auto)%h%Creset %cd %C(cyan)%an%Creset - %s%C(auto)%d%Creset' --date=format:'%Y-%m-%d %H:%M' HEAD
+  git log --graph --oneline --max-count=${1:-5} \
+    --pretty=format:'%C(auto)%h%Creset %cd %C(cyan)%an%Creset - %s%C(auto)%d%Creset'\
+    --date=format:'%Y-%m-%d %H:%M' HEAD
 }
 
 # checkout

@@ -1,6 +1,8 @@
 # dotfiles
 
-Note: as of March 2025 I am starting to transfer most of this configuration to [nix-config](https://github.com/thibautvas/nix-config).
+Notes:
+  - As of March 2025 I am starting to transfer most of this configuration to [nix-config](https://github.com/thibautvas/nix-config).
+  - I still use the [minimal](https://github.com/thibautvas/dotfiles/tree/minimal) version of these dotfiles on virtual machines that do not have nix.
 
 Hi! I use this configuration on my local machine (macOS), as well as on remote machines (linux).
 
@@ -79,9 +81,8 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 └── tmux
     ├── bin
     │   ├── attach_session
-    │   ├── bind_j
     │   └── new_session
     └── tmux.conf
 
-17 directories, 46 files
+17 directories, 45 files
 ```

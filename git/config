@@ -1,8 +1,5 @@
 [user]
 	name = thibautvas
 	email = thibaut.vas@gmail.com
-[alias]
-	last = log --stat --max-count=1 HEAD # last commit
-	snow = !"git grep --untracked --line-number snowball" # search for snowball (safe word)
-	unstage = reset --mixed HEAD # unstage all files
-	uncommit = reset --soft HEAD~1 # undo last commit
+[init]
+	defaultBranch = "main"
