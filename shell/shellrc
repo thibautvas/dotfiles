@@ -1,7 +1,7 @@
 # > Environment variables >
 
   # color, root directory
-  export HOST_COLOR='GREEN'
+  export HOST_COLOR='MAGENTA'
   export HOST_PROJECT_DIR="$HOME/repos"
 
 # < Environment variables <

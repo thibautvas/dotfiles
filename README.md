@@ -24,35 +24,9 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 .
 ├── .gitignore
 ├── README.md
-├── aerospace
-│   ├── aerospace.toml
-│   └── bin
-│       ├── move_app
-│       ├── restart_aerospace
-│       ├── tmux_session_selector
-│       └── toggle_menu_bar
-├── code
-│   ├── keybindings.json
-│   └── settings.json
-├── ghostty
-│   └── config
 ├── git
 │   ├── config
 │   └── ignore
-├── hypr
-│   ├── bin
-│   │   ├── battery
-│   │   ├── bluetooth
-│   │   ├── datetime
-│   │   ├── launch
-│   │   ├── launch_alt
-│   │   └── wifi
-│   ├── hypridle.conf
-│   ├── hyprland.conf
-│   ├── hyprlock.conf
-│   └── hyprpaper.conf
-├── kmonad
-│   └── home_row_mods.kbd
 ├── nvim
 │   ├── init.lua
 │   └── lua
@@ -70,9 +44,6 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 │               ├── lspconfig.lua
 │               ├── telescope.lua
 │               └── treesitter.lua
-├── recovery
-│   ├── code_init.sh
-│   └── darwin_init.sh
 ├── shell
 │   ├── generic.sh
 │   ├── gitflow.sh
@@ -84,5 +55,5 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
     │   └── new_session
     └── tmux.conf
 
-17 directories, 45 files
+9 directories, 24 files
 ```

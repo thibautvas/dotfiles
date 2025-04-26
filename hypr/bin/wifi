@@ -1,3 +1,0 @@
-#!/bin/bash
-
-nmcli -g GENERAL.CONNECTION device show | head -n1

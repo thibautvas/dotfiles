@@ -1,3 +1,0 @@
-#!/bin/bash
-
-bluetoothctl info | grep 'Name' | cut -d':' -f2 | xargs
