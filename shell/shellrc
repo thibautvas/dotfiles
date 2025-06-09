@@ -1,22 +1,8 @@
-# > Environment variables >
+export HOST_PROJECT_DIR="$HOME/repos"
+export HOST_COLOR='MAGENTA'
+export PICKER_CMD='FzfLua files';
 
-  # color, root directory
-  export HOST_COLOR='MAGENTA'
-  export HOST_PROJECT_DIR="$HOME/repos"
+[[ -f "$HOME/.config/shell/prompt.sh" ]] && source "$HOME/.config/shell/prompt.sh"
+[[ -f "$HOME/.config/shell/aliases.sh" ]] && source "$HOME/.config/shell/aliases.sh"
 
-# < Environment variables <
-
-
-# > Source config >
-
-  # custom prompt
-  [[ -f "$HOME/.config/shell/prompt.sh" ]] && source "$HOME/.config/shell/prompt.sh"
-
-  # aliases and functions
-  [[ -f "$HOME/.config/shell/generic.sh" ]] && source "$HOME/.config/shell/generic.sh"
-  [[ -f "$HOME/.config/shell/gitflow.sh" ]] && source "$HOME/.config/shell/gitflow.sh"
-
-  # temporary add-ons (git-ignored)
-  [[ -f "$HOME/.config/shell/temp.sh" ]] && source "$HOME/.config/shell/temp.sh" || true
-
-# < Source config <
+[[ -f "$HOME/.config/tmux/bin/tls" ]] && alias tls="$HOME/.config/tmux/bin/tls"

@@ -1,31 +1,28 @@
 set_custom_prompt() {
-  # exit status
-  if [[ $? -eq 0 ]]; then # previous command success
-    local user_color=$(eval "echo \$$HOST_COLOR")
-  else # previous command failure
-    local user_color="$RED"
-  fi
+  [[ $? -eq 0 ]] &&
+  local user_color=$(eval "echo \$$HOST_COLOR") ||
+  local user_color="$RED"
+
   local active_user="[$USER@$(uname -n)]"
 
-  # active directory
-  local project branch active_dir dir_color
-  if project=$(git rev-parse --show-toplevel 2>/dev/null); then
-    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    active_dir="$(basename "$project"):$branch $(echo "$PWD" | sed "s|^$project|~|")"
-    dir_color="$YELLOW"
-  else
-    active_dir=$(echo "$PWD" | sed "s|^$HOME|~|")
-    dir_color="$BLUE"
-  fi
+  local project
+  project=$(git rev-parse --show-toplevel 2>/dev/null) && {
+    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    local active_dir="$(basename "$project"):$branch $(echo "$PWD" | sed "s:^$project:~:")"
+    local dir_color="$YELLOW"
+  } || {
+    local active_dir=$(echo "$PWD" | sed "s:^$HOME:~:")
+    local dir_color="$BLUE"
+  }
 
-  if [[ -n "$name" ]]; then
-    local active_shell="($name) "
-  fi
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    local active_venv="($(basename $VIRTUAL_ENV)) "
-  fi
+  [[ -n "$name" ]] &&
+  local active_shell="($name) " || {
+    [[ $(echo $PATH | cut -d':' -f1) == /nix/store/* ]] &&
+    local active_shell="($(echo $PATH | cut -d'-' -f2)-env) "
+  }
+  [[ -n "$VIRTUAL_ENV" ]] &&
+  local active_venv="($(basename $VIRTUAL_ENV)) "
 
-  # render prompt
   PS1="$active_shell$active_venv$user_color$active_user $dir_color$active_dir\$ $DEFAULT"
 }
 

@@ -4,9 +4,9 @@ Notes:
   - As of March 2025 I am starting to transfer most of this configuration to [nix-config](https://github.com/thibautvas/nix-config).
   - I still use the [minimal](https://github.com/thibautvas/dotfiles/tree/minimal) version of these dotfiles on virtual machines that do not have nix.
 
-Hi! I use this configuration on my local machine (macOS), as well as on remote machines (linux).
+Hi! I use this configuration on my local machine (macos), as well as on remote machines (linux).
 
-I typically clone this repository in `~/repos/git/dotfiles`, and symlink most of it to `~/.config` (cf. [`./recovery/darwin_init.sh`](recovery/darwin_init.sh)).
+I typically clone this repository in `~/repos/git/dotfiles`, and symlink most of its contents to `~/.config`.
 
 ## Common configuration
 
@@ -14,13 +14,13 @@ Whenever possible, this configuration is shared between local and remote machine
 
 ## Shell configuration
 
-I work on macOS and use the default z-shell locally.
+I work on macos and use the default z-shell locally.
 As a matter of fact, I tend to use the default shell on any machine I connect to, to avoid wasting time on configuration.
-That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, that I would symlink as `~/.bashrc` or `~/.zshrc`.
+That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, that I would symlink as either `~/.bashrc` or `~/.zshrc`.
 
 ## Project structure
 
-```bash
+```text
 .
 ├── .gitignore
 ├── README.md
@@ -31,29 +31,23 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 │   ├── init.lua
 │   └── lua
 │       └── default
-│           ├── init.lua
-│           ├── keymaps.lua
-│           ├── lazy.lua
-│           ├── options.lua
-│           └── plugins
-│               ├── catppuccin.lua
-│               ├── completion.lua
-│               ├── copilot.lua
-│               ├── gitsigns.lua
-│               ├── init.lua
-│               ├── lspconfig.lua
-│               ├── telescope.lua
-│               └── treesitter.lua
+│           ├── blink.lua
+│           ├── catppuccin.lua
+│           ├── fzf-lua.lua
+│           ├── gitsigns.lua
+│           ├── lsp.lua
+│           ├── neogit.lua
+│           ├── oil.lua
+│           ├── settings.lua
+│           └── treesitter.lua
 ├── shell
-│   ├── generic.sh
-│   ├── gitflow.sh
+│   ├── aliases.sh
 │   ├── prompt.sh
 │   └── shellrc
 └── tmux
     ├── bin
-    │   ├── attach_session
-    │   └── new_session
+    │   └── tls
     └── tmux.conf
 
-9 directories, 24 files
+8 directories, 19 files
 ```

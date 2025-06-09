@@ -1,16 +1,6 @@
-# directory settings
-.direnv/
-.vscode/
-
-# virtual environments
-.venv/
-
-# packaging files
-*.egg-info/
-
-# temporary files
 temp.*
 temp/
-
-# backup files
 *.bak
+.direnv/
+.venv/
+*.egg-info/
