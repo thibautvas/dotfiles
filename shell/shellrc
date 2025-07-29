@@ -1,5 +1,6 @@
 export HOST_PROJECT_DIR="$HOME/repos"
 export HOST_COLOR='MAGENTA'
+export EDITOR='nvim'
 export PICKER_CMD='FzfLua files';
 
 [[ -f "$HOME/.config/shell/prompt.sh" ]] && source "$HOME/.config/shell/prompt.sh"
