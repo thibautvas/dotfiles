@@ -8,22 +8,16 @@ Hi! I use this configuration on my local machine (macos), as well as on remote m
 
 I typically clone this repository in `~/repos/git/dotfiles`, and symlink most of its contents to `~/.config`.
 
-## Common configuration
-
-Whenever possible, this configuration is shared between local and remote machines to streamline processes and avoid overhead.
-
-## Shell configuration
-
-I work on macos and use the default z-shell locally.
-As a matter of fact, I tend to use the default shell on any machine I connect to, to avoid wasting time on configuration.
-That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, that I would symlink as either `~/.bashrc` or `~/.zshrc`.
-
 ## Project structure
 
 ```text
 .
 ├── .gitignore
 ├── README.md
+├── bash
+│   ├── aliases
+│   ├── bashrc
+│   └── prompt
 ├── git
 │   ├── config
 │   └── ignore
@@ -40,10 +34,6 @@ That is why this repository contains a [`./shell/shellrc`](shell/shellrc) file, 
 │           ├── oil.lua
 │           ├── settings.lua
 │           └── treesitter.lua
-├── shell
-│   ├── aliases.sh
-│   ├── prompt.sh
-│   └── shellrc
 └── tmux
     ├── bin
     │   └── tls

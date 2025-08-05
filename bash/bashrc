@@ -1,0 +1,8 @@
+export HOST_PROJECT_DIR="$HOME/repos"
+export EDITOR='nvim'
+export PICKER_CMD='FzfLua files';
+
+[[ -f "$HOME/.config/bash/prompt" ]] && source "$HOME/.config/bash/prompt"
+[[ -f "$HOME/.config/bash/aliases" ]] && source "$HOME/.config/bash/aliases"
+
+[[ -f "$HOME/.config/tmux/bin/tls" ]] && alias tls="$HOME/.config/tmux/bin/tls"
