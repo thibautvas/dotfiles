@@ -17,19 +17,20 @@
 ├── git
 │   ├── config
 │   └── ignore
-└── nvim
-    ├── init.lua
-    └── lua
-        └── default
-            ├── blink.lua
-            ├── catppuccin.lua
-            ├── fzf-lua.lua
-            ├── gitsigns.lua
-            ├── lsp.lua
-            ├── neogit.lua
-            ├── oil.lua
-            ├── settings.lua
-            └── treesitter.lua
+├── nvim
+│   ├── init.lua
+│   └── lua
+│       └── default
+│           ├── blink.lua
+│           ├── catppuccin.lua
+│           ├── fzf-lua.lua
+│           ├── gitsigns.lua
+│           ├── lsp.lua
+│           ├── neogit.lua
+│           ├── oil.lua
+│           ├── settings.lua
+│           └── treesitter.lua
+└── setup.sh
 
-6 directories, 17 files
+6 directories, 18 files
 ```
