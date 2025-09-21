@@ -6,7 +6,7 @@ Notes:
 
 Hi! I use this configuration on my local machine (macos), as well as on remote machines (linux).
 
-I typically clone this repository in `~/repos/git/dotfiles`, and symlink most of its contents to `~/.config`.
+I typically clone this repository in `~/repos/dotfiles` and run [`./setup.sh`](setup.sh) from there.
 
 ## Project structure
 
@@ -34,10 +34,11 @@ I typically clone this repository in `~/repos/git/dotfiles`, and symlink most of
 │           ├── oil.lua
 │           ├── settings.lua
 │           └── treesitter.lua
+├── setup.sh
 └── tmux
     ├── bin
     │   └── tls
     └── tmux.conf
 
-8 directories, 19 files
+8 directories, 20 files
 ```

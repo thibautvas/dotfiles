@@ -1,3 +1,4 @@
+export PATH="$HOME/.local/bin:$PATH"
 export HOST_PROJECT_DIR="$HOME/repos"
 export EDITOR='nvim'
 export PICKER_CMD='FzfLua files';
