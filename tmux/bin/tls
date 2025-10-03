@@ -2,7 +2,7 @@
 
 results="{
   tmux list-sessions | cut -d':' -f1 | sed 's/^/\x1b[35m/; s/\$/\x1b[0m/';
-  fd --base-directory \"$HOST_PROJECT_DIR\" --type directory | sed 's/\/$//';
+  fd --base-directory \"$WORK_DIR\" --type directory | sed 's/\/$//';
 }"
 
 target=$(
@@ -14,7 +14,7 @@ target=$(
 )
 
 [[ -z "$target" ]] && exit 1
-[[ -d "$target" ]] && path="$target" || path="$HOST_PROJECT_DIR/$target"
+[[ -d "$target" ]] && path="$target" || path="$WORK_DIR/$target"
 title=$(basename "$target" | sed 's/\.//g')
 tmux new-session -d -s "$title" -c "$path" 2>/dev/null &&
 tmux new-window -t "$title":2 -c "$path" 'nvim +"$PICKER_CMD"'

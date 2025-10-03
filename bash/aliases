@@ -57,8 +57,8 @@ direct_cd() {
   )
   [[ -n "$target" ]] && cd "$1/$target"
 }
-alias dcd="direct_cd $HOST_PROJECT_DIR"
-alias gcd='direct_cd "$(git rev-parse --show-toplevel 2>/dev/null || echo $HOST_PROJECT_DIR/git)"'
+alias dcd="direct_cd $WORK_DIR"
+alias gcd='direct_cd "$(git rev-parse --show-toplevel 2>/dev/null || echo $WORK_DIR/git)"'
 
 vi() {
   [[ -n "$1" ]] && nvim "$1" || nvim +"$PICKER_CMD"
