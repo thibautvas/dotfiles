@@ -1,29 +1,26 @@
 set_custom_prompt() {
-  [[ $? -eq 0 ]] &&
-  local user_color='\[\e[35m\]' ||
-  local user_color='\[\e[31m\]'
+  local exit_status=$?
+  local active_user user_color project branch active_dir dir_color
 
-  local active_user="[$USER@$(uname -n)]"
+  active_user='[\u@\h]'
 
-  local project
-  project=$(git rev-parse --show-toplevel 2>/dev/null) && {
-    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    local active_dir="$(basename "$project"):$branch $(echo "$PWD" | sed "s:^$project:~:")"
-    local dir_color='\[\e[33m\]'
-  } || {
-    local active_dir=$(echo "$PWD" | sed "s:^$HOME:~:")
-    local dir_color='\[\e[34m\]'
-  }
+  if [[ exit_status -eq 0 ]]; then
+    user_color='\[\e[35m\]'
+  else
+    user_color='\[\e[31m\]'
+  fi
 
-  [[ -n "$name" ]] &&
-  local active_shell="($name) " || {
-    [[ $(echo $PATH | cut -d':' -f1) == /nix/store/* ]] &&
-    local active_shell="($(echo $PATH | cut -d'-' -f2)-env) "
-  }
-  [[ -n "$VIRTUAL_ENV" ]] &&
-  local active_venv="($(basename $VIRTUAL_ENV)) "
+  if { read -r project; read -r branch; } < <(
+    git rev-parse --show-toplevel --abbrev-ref HEAD 2>/dev/null
+  ); then
+    active_dir="${project##*/}:$branch ${PWD/#$project/'~'}"
+    dir_color='\[\e[33m\]'
+  else
+    active_dir='\w'
+    dir_color='\[\e[34m\]'
+  fi
 
-  PS1="$active_shell$active_venv$user_color$active_user $dir_color$active_dir\$ \[\e[0m\]"
+  PS1="$user_color$active_user $dir_color$active_dir\$ \[\e[0m\]"
 }
 
 PROMPT_COMMAND='set_custom_prompt'
