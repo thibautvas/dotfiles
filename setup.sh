@@ -5,7 +5,7 @@ mkdir -p "$HOME/.local/bin"
 TMPDIR=$(mktemp -d)
 
 ln -sf "$(realpath ./bash/bashrc)" "$HOME/.bashrc"
-for dir in git bash nvim tmux; do
+for dir in git bash nvim; do
   rm -rf "$HOME/.config/$dir"
   ln -s "$(realpath ./$dir)" "$HOME/.config"
 done

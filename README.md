@@ -35,11 +35,7 @@ I typically clone this repository in `~/repos/dotfiles` and run [`./setup.sh`](s
 │   │       ├── settings.lua
 │   │       └── treesitter.lua
 │   └── nvim-pack-lock.json
-├── setup.sh
-└── tmux
-    ├── bin
-    │   └── tls
-    └── tmux.conf
+└── setup.sh
 
-8 directories, 21 files
+6 directories, 19 files
 ```
