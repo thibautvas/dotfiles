@@ -16,7 +16,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    vim.opt_local.shiftwidth = 4
+  end,
+})
 vim.opt.inccommand = "split"
 vim.opt.undofile = true
 vim.opt.ignorecase = true
