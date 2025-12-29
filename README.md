@@ -11,9 +11,7 @@
 ├── .gitignore
 ├── README.md
 ├── bash
-│   ├── aliases
-│   ├── bashrc
-│   └── prompt
+│   └── bashrc
 ├── git
 │   ├── config
 │   └── ignore
@@ -33,5 +31,5 @@
 │   └── nvim-pack-lock.json
 └── setup.sh
 
-6 directories, 19 files
+6 directories, 17 files
 ```
