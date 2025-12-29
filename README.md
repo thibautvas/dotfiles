@@ -2,9 +2,7 @@
 
 Notes:
   - As of March 2025 I am starting to transfer most of this configuration to [nix-config](https://github.com/thibautvas/nix-config).
-  - I still use the [minimal](https://github.com/thibautvas/dotfiles/tree/minimal) version of these dotfiles on virtual machines that do not have nix.
-
-Hi! I use this configuration on my local machine (macos), as well as on remote machines (linux).
+  - I still use this minimal version of dotfiles on virtual machines that do not have nix.
 
 I typically clone this repository in `~/repos/dotfiles` and run [`./setup.sh`](setup.sh) from there.
 
@@ -15,9 +13,7 @@ I typically clone this repository in `~/repos/dotfiles` and run [`./setup.sh`](s
 ├── .gitignore
 ├── README.md
 ├── bash
-│   ├── aliases
-│   ├── bashrc
-│   └── prompt
+│   └── bashrc
 ├── git
 │   ├── config
 │   └── ignore
@@ -37,5 +33,5 @@ I typically clone this repository in `~/repos/dotfiles` and run [`./setup.sh`](s
 │   └── nvim-pack-lock.json
 └── setup.sh
 
-6 directories, 19 files
+6 directories, 17 files
 ```
