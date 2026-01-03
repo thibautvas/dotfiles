@@ -11,12 +11,12 @@ TMPDIR=$(mktemp -d)
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/opt"
+mkdir -p "$HOME/repos"
 
 for url in "junegunn/fzf/releases/download/v${FZF_VERSION}/fzf-${FZF_VERSION}-linux_amd64.tar.gz" \
            "sharkdp/fd/releases/download/v${FD_VERSION}/fd-v${FD_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
            "burntsushi/ripgrep/releases/download/${RG_VERSION}/ripgrep-${RG_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
-           "neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.tar.gz" \
-           "thibautvas/dotfiles/archive/refs/heads/main.tar.gz"
+           "neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.tar.gz"
 do
   curl -fsSL "https://github.com/$url" | tar -xz -C "$TMPDIR"
 done
@@ -28,8 +28,10 @@ done
 cp -r "$TMPDIR/nvim-linux-x86_64" "$HOME/.local/opt"
 ln -s "$HOME/.local/opt/nvim-linux-x86_64/bin/nvim" "$HOME/.local/bin"
 
+git -C $HOME/repos clone https://github.com/thibautvas/dotfiles
+
 for dir in bash git nvim; do
-  cp -r "$TMPDIR/dotfiles-main/$dir" "$HOME/.config"
+  ln -sf "$HOME/repos/dotfiles/$dir" "$HOME/.config"
 done
 
 ln -sf "$HOME/.config/bash/bashrc" "$HOME/.bashrc"
