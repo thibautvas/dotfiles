@@ -2,9 +2,17 @@
 
 Notes:
   - As of March 2025 I am starting to transfer most of this configuration to [nix-config](https://github.com/thibautvas/nix-config).
-  - I still use this minimal version of dotfiles on virtual machines that do not have nix.
+  - I still use these dotfiles on virtual machines that do not have nix.
 
-I typically clone this repository in `~/repos/dotfiles` and run [`./setup.sh`](setup.sh) from there.
+I have switched to a remote installation of these dotfiles:
+```bash
+curl -fsSL https://raw.githubusercontent.com/thibautvas/dotfiles/refs/heads/main/setup.sh | bash
+```
+
+For development purposes, I also maintain a local installation setup via the [symlink](https://github.com/thibautvas/dotfiles/tree/symlink) branch:
+```bash
+curl -fsSL https://raw.githubusercontent.com/thibautvas/dotfiles/refs/heads/symlink/setup.sh | bash
+```
 
 ## Project structure
 
