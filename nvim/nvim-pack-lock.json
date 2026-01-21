@@ -2,16 +2,11 @@
   "plugins": {
     "blink.cmp": {
       "rev": "b19413d",
-      "src": "https://github.com/saghen/blink.cmp",
-      "version": "1.0.0 - 2.0.0"
+      "src": "https://github.com/saghen/blink.cmp"
     },
     "catppuccin.nvim": {
       "rev": "ce4a8e0",
       "src": "https://github.com/catppuccin/nvim"
-    },
-    "diffview.nvim": {
-      "rev": "4516612",
-      "src": "https://github.com/sindrets/diffview.nvim"
     },
     "fzf-lua": {
       "rev": "cae96b0",

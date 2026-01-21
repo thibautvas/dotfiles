@@ -1,5 +1,7 @@
 # dotfiles
 
+This legacy branch installs plugins on nvim<0.12 via [`./nvim/nvim-setup.sh`](nvim/nvim-setup.sh).
+
 Notes:
   - As of March 2025 I am starting to transfer most of this configuration to [nix-config](https://github.com/thibautvas/nix-config).
   - I still use these dotfiles on virtual machines that do not have nix.
@@ -27,19 +29,9 @@ curl -fsSL https://raw.githubusercontent.com/thibautvas/dotfiles/refs/heads/syml
 │   └── ignore
 ├── nvim
 │   ├── init.lua
-│   ├── lua
-│   │   └── default
-│   │       ├── blink.lua
-│   │       ├── catppuccin.lua
-│   │       ├── fzf-lua.lua
-│   │       ├── gitsigns.lua
-│   │       ├── lsp.lua
-│   │       ├── neogit.lua
-│   │       ├── oil.lua
-│   │       ├── settings.lua
-│   │       └── treesitter.lua
-│   └── nvim-pack-lock.json
+│   ├── nvim-pack-lock.json
+│   └── setup-nvim.sh
 └── setup.sh
 
-6 directories, 17 files
+4 directories, 9 files
 ```
