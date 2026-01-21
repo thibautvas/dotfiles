@@ -17,19 +17,9 @@
 │   └── ignore
 ├── nvim
 │   ├── init.lua
-│   ├── lua
-│   │   └── default
-│   │       ├── blink.lua
-│   │       ├── catppuccin.lua
-│   │       ├── fzf-lua.lua
-│   │       ├── gitsigns.lua
-│   │       ├── lsp.lua
-│   │       ├── neogit.lua
-│   │       ├── oil.lua
-│   │       ├── settings.lua
-│   │       └── treesitter.lua
-│   └── nvim-pack-lock.json
+│   ├── nvim-pack-lock.json
+│   └── setup-nvim.sh
 └── setup.sh
 
-6 directories, 17 files
+4 directories, 9 files
 ```
