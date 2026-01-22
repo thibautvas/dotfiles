@@ -27,8 +27,8 @@ curl -fsSL https://raw.githubusercontent.com/thibautvas/dotfiles/refs/heads/syml
 │   └── ignore
 ├── nvim
 │   ├── init.lua
-│   ├── nvim-pack-lock.json
-│   └── setup-nvim.sh
+│   └── nvim-pack-lock.json
+├── setup-nvim.sh
 └── setup.sh
 
 4 directories, 9 files
