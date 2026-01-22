@@ -1,7 +1,7 @@
 export PATH="$HOME/.local/bin:$PATH"
 export WORK_DIR="$HOME/repos"
 export EDITOR='nvim'
-export PICKER_CMD='FzfLua files';
+export PICKER_CMD='FzfLua files'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -25,7 +25,7 @@ gl() {
 }
 alias ga='git add --verbose'
 alias gc='git commit'
-alias gane='git commit --amend --no-edit'
+alias ge='git commit --amend --no-edit'
 alias gd='git diff'
 alias gt='git difftool'
 alias gr='git restore'

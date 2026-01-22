@@ -1,7 +1,5 @@
 # dotfiles
 
-This legacy branch installs plugins on nvim<0.12 via [`./nvim/nvim-setup.sh`](nvim/nvim-setup.sh).
-
 Notes:
   - As of March 2025 I am starting to transfer most of this configuration to [nix-config](https://github.com/thibautvas/nix-config).
   - I still use these dotfiles on virtual machines that do not have nix.
