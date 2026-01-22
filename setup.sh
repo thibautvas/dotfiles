@@ -2,34 +2,61 @@
 
 set -euo pipefail
 
+# set NODOT to skip installation of dotfiles
+# set NOBIN to skip installation of following binaries in PATH
+# set NOVIM to skip installation of nvim and plugins altogether
 FZF_VERSION="0.67.0"
 FD_VERSION="10.3.0"
 RG_VERSION="15.1.0"
 NVIM_VERSION="0.11.5"
 
+fetch() {
+  echo "==> Downloading: $1" >&2
+  curl -fL "$1"
+}
+
 TMPDIR=$(mktemp -d)
-mkdir -p "$HOME/.config"
-mkdir -p "$HOME/.local/bin"
-mkdir -p "$HOME/.local/opt"
+fetch "https://github.com/thibautvas/dotfiles/archive/refs/heads/main.tar.gz" | tar -xz -C "$TMPDIR"
 
-for url in "junegunn/fzf/releases/download/v${FZF_VERSION}/fzf-${FZF_VERSION}-linux_amd64.tar.gz" \
-           "sharkdp/fd/releases/download/v${FD_VERSION}/fd-v${FD_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
-           "burntsushi/ripgrep/releases/download/${RG_VERSION}/ripgrep-${RG_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
-           "neovim/neovim/releases/download/v${NVIM_VERSION}/nvim-linux-x86_64.tar.gz" \
-           "thibautvas/dotfiles/archive/refs/heads/main.tar.gz"
-do
-  curl -fsSL "https://github.com/$url" | tar -xz -C "$TMPDIR"
-done
+# dotfiles proper
+if [[ -z "${NODOT+x}" ]]; then
+  mkdir -p "$HOME/.config"
+  for dir in bash git nvim; do
+    cp -r "$TMPDIR/dotfiles-main/$dir" "$HOME/.config"
+  done
+  ln -sf ".config/bash/bashrc" "$HOME/.bashrc"
+fi
 
-for bin in fzf fd rg; do
-  find "$TMPDIR" -type f -name "$bin" -executable -exec cp {} "$HOME/.local/bin" \;
-done
+# local binaries
+if [[ -z "${NOBIN+x}" ]]; then
+  mkdir -p "$HOME/.local/bin"
+  for url in "junegunn/fzf/releases/download/v${FZF_VERSION}/fzf-${FZF_VERSION}-linux_amd64.tar.gz" \
+             "sharkdp/fd/releases/download/v${FD_VERSION}/fd-v${FD_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+             "burntsushi/ripgrep/releases/download/${RG_VERSION}/ripgrep-${RG_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+  do
+    fetch "https://github.com/$url" | tar -xz -C "$TMPDIR"
+  done
 
-cp -r "$TMPDIR/nvim-linux-x86_64" "$HOME/.local/opt"
-ln -s "$HOME/.local/opt/nvim-linux-x86_64/bin/nvim" "$HOME/.local/bin"
+  for bin in fzf fd rg; do
+    find "$TMPDIR" -type f -name "$bin" -executable -exec cp {} "$HOME/.local/bin" \;
+  done
+fi
 
-for dir in bash git nvim; do
-  cp -r "$TMPDIR/dotfiles-main/$dir" "$HOME/.config"
-done
+# nvim and plugins
+if [[ -z "${NOVIM+x}" ]]; then
+  mkdir -p "$HOME/.local/share/nvim/site/pack/core/start"
+  fetch "https://github.com/jqlang/jq/releases/latest/download/jq-linux-amd64" |
+    install -m 755 /dev/stdin "$TMPDIR/jq"
 
-ln -sf "$HOME/.config/bash/bashrc" "$HOME/.bashrc"
+  "$TMPDIR/jq" -r '.plugins[] | "\(.src) \(.rev)"' "$TMPDIR/dotfiles-main/nvim/nvim-pack-lock.json" |
+    while read -r src rev; do
+      fetch "$src/archive/$rev.tar.gz" | tar -xz -C "$HOME/.local/share/nvim/site/pack/core/start"
+    done
+
+  if [[ -z "${NOBIN+x}" ]]; then
+    mkdir -p "$HOME/.local/opt"
+    fetch "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim-linux-x86_64.tar.gz" |
+      tar -xz -C "$HOME/.local/opt"
+    ln -s "../opt/nvim-linux-x86_64/bin/nvim" "$HOME/.local/bin"
+  fi
+fi

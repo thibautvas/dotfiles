@@ -17,9 +17,8 @@
 │   └── ignore
 ├── nvim
 │   ├── init.lua
-│   ├── nvim-pack-lock.json
-│   └── setup-nvim.sh
+│   └── nvim-pack-lock.json
 └── setup.sh
 
-4 directories, 9 files
+4 directories, 8 files
 ```
