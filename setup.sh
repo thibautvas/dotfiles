@@ -12,11 +12,11 @@ NVIM_VERSION="0.11.5"
 TMPDIR=$(mktemp -d)
 
 # dotfiles proper
-mkdir -p "$HOME/.config"
-curl -fsSL "https://github.com/thibautvas/dotfiles/archive/refs/heads/main.tar.gz" | tar -xz -C "$TMPDIR"
+mkdir -p "$HOME/.config" "$HOME/repos"
+git -C "$HOME/repos" clone "https://github.com/thibautvas/dotfiles"
 
 for dir in bash git nvim; do
-  cp -r "$TMPDIR/dotfiles-main/$dir" "$HOME/.config"
+  ln -sf "../repos/dotfiles/$dir" "$HOME/.config"
 done
 ln -sf ".config/bash/bashrc" "$HOME/.bashrc"
 
