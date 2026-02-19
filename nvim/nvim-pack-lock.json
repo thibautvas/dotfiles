@@ -16,10 +16,6 @@
       "rev": "5813e48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "neogit": {
-      "rev": "40347fbc",
-      "src": "https://github.com/neogitorg/neogit"
-    },
     "none-ls.nvim": {
       "rev": "9a5d95c",
       "src": "https://github.com/nvimtools/none-ls.nvim"
@@ -39,10 +35,6 @@
     "oil.nvim": {
       "rev": "cbcb3f9",
       "src": "https://github.com/stevearc/oil.nvim"
-    },
-    "plenary.nvim": {
-      "rev": "b9fd522",
-      "src": "https://github.com/nvim-lua/plenary.nvim"
     }
   }
 }

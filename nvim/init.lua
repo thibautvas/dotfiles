@@ -134,23 +134,6 @@ require("oil").setup({
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Oil in parent directory" })
 
-local ng = require("neogit")
-ng.setup({
-  kind = "replace",
-  disable_insert_on_commit = true,
-  commit_editor = {
-    kind = "replace",
-    show_staged_diff = false,
-    spell_check = false,
-  },
-  commit_select_view = { kind = "replace" },
-  log_view = { kind = "replace" },
-})
-
-vim.keymap.set("n", "<leader>hs", ng.open, { desc = "Neogit status" })
-vim.keymap.set("n", "<leader>hc", ng.action("commit", "commit", { "--verbose" }), { desc = "Neogit commit" })
-vim.keymap.set("n", "<leader>he", ng.action("commit", "extend"), { desc = "Neogit extend" })
-
 local gs = require("gitsigns")
 gs.setup()
 
@@ -178,6 +161,20 @@ vim.keymap.set("n", "<leader>ht", function()
   })
 end, { desc = "Gitsigns diff file" })
 vim.keymap.set("n", "<leader>hb", gs.blame, { desc = "Gitsigns blame file" })
+
+vim.keymap.set("n", "<leader>hc", function()
+  vim.ui.input({ prompt = "Commit message: " }, function(msg)
+    vim.fn.system({ "git", "commit", "-m", msg })
+    print("Committed: " .. msg)
+  end)
+end, { desc = "Git commit" })
+
+vim.keymap.set("n", "<leader>he", function()
+  vim.fn.system({ "git", "commit", "--amend", "--no-edit" })
+  local msg = vim.fn.system({ "git", "log", "-n1", "--pretty=%B" })
+  msg = vim.trim(msg)
+  print("Extended: " .. msg)
+end, { desc = "Git extend" })
 
 require("catppuccin").setup({
   flavour = "mocha",
