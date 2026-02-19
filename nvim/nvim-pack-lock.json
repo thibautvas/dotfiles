@@ -4,10 +4,6 @@
       "rev": "b19413d",
       "src": "https://github.com/saghen/blink.cmp"
     },
-    "catppuccin.nvim": {
-      "rev": "ce4a8e0",
-      "src": "https://github.com/catppuccin/nvim"
-    },
     "fzf-lua": {
       "rev": "cae96b0",
       "src": "https://github.com/ibhagwan/fzf-lua"
@@ -16,13 +12,13 @@
       "rev": "5813e48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "neogit": {
-      "rev": "40347fbc",
-      "src": "https://github.com/neogitorg/neogit"
+    "gitutils.nvim": {
+      "rev": "9228406",
+      "src": "https://github.com/thibautvas/gitutils.nvim"
     },
-    "none-ls.nvim": {
-      "rev": "9a5d95c",
-      "src": "https://github.com/nvimtools/none-ls.nvim"
+    "kanagawa.nvim": {
+      "rev": "aef7f5c",
+      "src": "https://github.com/rebelot/kanagawa.nvim"
     },
     "nvim-treesitter": {
       "rev": "42fc28ba",
@@ -39,10 +35,6 @@
     "oil.nvim": {
       "rev": "cbcb3f9",
       "src": "https://github.com/stevearc/oil.nvim"
-    },
-    "plenary.nvim": {
-      "rev": "b9fd522",
-      "src": "https://github.com/nvim-lua/plenary.nvim"
     }
   }
 }

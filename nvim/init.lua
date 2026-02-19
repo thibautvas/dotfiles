@@ -57,14 +57,6 @@ vim.lsp.config.ruff = {
   filetypes = { "python" },
 }
 
-local nls = require("null-ls")
-nls.setup({
-  sources = {
-    nls.builtins.formatting.sqlfluff,
-    nls.builtins.diagnostics.sqlfluff,
-  },
-})
-
 vim.api.nvim_create_autocmd("LspAttach", {
   pattern = { "*.py", "*.sql" },
   callback = function(args)
@@ -134,56 +126,84 @@ require("oil").setup({
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Oil in parent directory" })
 
-local ng = require("neogit")
-ng.setup({
-  kind = "replace",
-  disable_insert_on_commit = true,
-  commit_editor = {
-    kind = "replace",
-    show_staged_diff = false,
-    spell_check = false,
-  },
-  commit_select_view = { kind = "replace" },
-  log_view = { kind = "replace" },
-})
-
-vim.keymap.set("n", "<leader>hs", ng.open, { desc = "Neogit status" })
-vim.keymap.set("n", "<leader>hc", ng.action("commit", "commit", { "--verbose" }), { desc = "Neogit commit" })
-vim.keymap.set("n", "<leader>he", ng.action("commit", "extend"), { desc = "Neogit extend" })
-
 local gs = require("gitsigns")
 gs.setup()
-
-local nav_hunk = function(dir)
-  gs.nav_hunk(dir, { target = "all" })
-  vim.defer_fn(function()
-    vim.cmd("norm! zz")
-  end, 10)
+for dir, keymap in pairs({
+  next = "<M-h>",
+  prev = "<M-H>",
+}) do
+  vim.keymap.set({ "n", "v" }, keymap, function()
+    gs.nav_hunk(dir, { target = "all" }, function()
+      vim.cmd("norm! zz")
+    end)
+  end, { desc = "Gitsigns " .. dir .. " hunk" })
 end
-vim.keymap.set("n", "<M-h>", function()
-  nav_hunk("next")
-end, { desc = "Gitsigns next hunk" })
-vim.keymap.set("n", "<M-H>", function()
-  nav_hunk("prev")
-end, { desc = "Gitsigns previous hunk" })
 
-vim.keymap.set("n", "<leader>ha", gs.stage_hunk, { desc = "Gitsigns stage hunk" })
-vim.keymap.set("n", "<leader>hr", gs.reset_hunk, { desc = "Gitsigns reset hunk" })
+for action, keymap in pairs({
+  stage = "<leader>ha",
+  reset = "<leader>hr",
+}) do
+  vim.keymap.set("n", keymap, gs[action .. "_hunk"], {
+    desc = "Gitsigns " .. action .. " hunk",
+  })
+  vim.keymap.set("v", keymap, function()
+    gs[action .. "_hunk"]({ vim.fn.line("."), vim.fn.line("v") })
+  end, { desc = "Gitsigns " .. action .. " hunk (visual)" })
+end
 
 vim.keymap.set("n", "<leader>hd", gs.preview_hunk_inline, { desc = "Gitsigns diff hunk" })
-vim.keymap.set("n", "<leader>ht", function()
-  gs.diffthis("HEAD", {
-    vertical = true,
-    split = "belowright",
-  })
-end, { desc = "Gitsigns diff file" })
-vim.keymap.set("n", "<leader>hb", gs.blame, { desc = "Gitsigns blame file" })
 
-require("catppuccin").setup({
-  flavour = "mocha",
-  term_colors = true,
-  transparent_background = true,
-  float = { transparent = true },
+vim.keymap.set({ "o", "x" }, "ih", gs.select_hunk, { desc = "Gitsigns select hunk" })
+
+local gu = require("gitutils")
+gu.setup()
+
+vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
+  pattern = "*",
+  callback = require("gitutils.helpers").refresh_head,
 })
 
-vim.cmd.colorscheme("catppuccin")
+vim.opt.rulerformat = "%50(%{g:gitutils_head}%= %l,%c%)"
+
+vim.keymap.set("n", "<leader>hc", gu.commit, { desc = "Gitutils commit" })
+vim.keymap.set("n", "<leader>he", gu.extend, { desc = "Gitutils extend" })
+vim.keymap.set("n", "<leader>hb", gu.checkout, { desc = "Gitutils checkout" })
+vim.keymap.set("n", "<leader>hx", gu.rebase, { desc = "Gitutils interactive rebase" })
+vim.keymap.set("n", "<leader>hv", gu.continue, { desc = "Gitutils rebase continue" })
+
+vim.keymap.set("n", "<leader>hf", function()
+  require("gitsigns").stage_hunk(nil, {}, gu.extend)
+end, { desc = "Gitsigns stage and Gitutils extend" })
+vim.keymap.set("v", "<leader>hf", function()
+  require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }, {}, gu.extend)
+end, { desc = "Gitsigns stage and Gitutils extend" })
+
+vim.keymap.set("n", "<leader>ht", gu.diffthis, { desc = "Gitutils diff buffer" })
+vim.keymap.set("n", "<leader>hg", gu.diff, { desc = "Gitutils diff repo" })
+vim.keymap.set("n", "]g", function()
+  gu.qf_diff("next")
+end, { desc = "Gitutils next diff" })
+vim.keymap.set("n", "[g", function()
+  gu.qf_diff("prev")
+end, { desc = "Gitutils prev diff" })
+
+
+require("kanagawa").setup({
+  transparent = true,
+  statementStyle = { bold = false },
+  overrides = function()
+    local t = {}
+    for _, key in ipairs({
+      "ModeMsg",
+      "CursorLineNr",
+      "Boolean",
+      "@keyword.operator",
+      "@string.escape",
+    }) do
+      t[key] = { bold = false }
+    end
+    return t
+  end,
+})
+
+vim.cmd.colorscheme("kanagawa")
