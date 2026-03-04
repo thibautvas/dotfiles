@@ -1,5 +1,5 @@
 export PATH="$HOME/.local/bin:$PATH"
-export WORK_DIR="$HOME/repos"
+export WORK_DIR="$HOME/sync/repos"
 export EDITOR='nvim'
 export PICKER_CMD='FzfLua files'
 
@@ -88,7 +88,8 @@ set_custom_prompt() {
   if { read -r project; read -r branch; } < <(
     git rev-parse --show-toplevel --abbrev-ref HEAD 2>/dev/null
   ); then
-    active_dir="${project##*/}:$branch ${PWD/#$project/'~'}"
+    local realpwd=$(pwd -P)
+    active_dir="${project##*/}:$branch ${realpwd/#$project/'~'}"
     dir_color='\[\e[33m\]'
   else
     active_dir='\w'
