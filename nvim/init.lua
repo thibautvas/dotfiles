@@ -121,11 +121,29 @@ fl.setup({
 vim.keymap.set("n", "<leader>fd", fl.files, { desc = "FzfLua files" })
 vim.keymap.set("n", "<leader>ff", fl.buffers, { desc = "FzfLua buffers" })
 vim.keymap.set("n", "<leader>fs", fl.git_status, { desc = "FzfLua git status" })
-vim.keymap.set("n", "<leader>fa", function()
-  fl.files { cwd = vim.fn.getenv("WORK_DIR") }
-end,
-{ desc = "FzfLua WORK_DIR files" })
 vim.keymap.set("n", "<leader>fg", fl.live_grep_native, { desc = "FzfLua live grep" })
+
+local work_dir = vim.fn.getenv("WORK_DIR")
+vim.keymap.set("n", "<leader>fa", function()
+  fl.files { cwd = work_dir }
+end, { desc = "FzfLua WORK_DIR files" })
+
+vim.keymap.set("n", "<leader>fp", function()
+  fl.fzf_exec("fd -t d -d 1 -L --base-directory " .. work_dir, {
+    winopts = { title = " Projects " },
+    actions = {
+      ["default"] = function(selected)
+        if selected[1] then
+          local dir = table.concat({
+            work_dir,
+            vim.fn.fnameescape(selected[1])
+          }, "/")
+          vim.cmd("cd " .. dir)
+        end
+      end,
+    },
+  })
+end, { desc = "FzfLua change directory" })
 
 require("oil").setup({
   view_options = { show_hidden = true },
@@ -137,50 +155,86 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Oil in parent directory" })
 local gs = require("gitsigns")
 gs.setup()
 
-local nav_hunk = function(dir)
-  gs.nav_hunk(dir, { target = "all" })
-  vim.defer_fn(function()
-    vim.cmd("norm! zz")
-  end, 10)
+local nav_hunk = function(keymap, dir)
+  vim.keymap.set({ "n", "v" }, keymap, function()
+    gs.nav_hunk(dir, { target = "all" }, function()
+      vim.cmd("norm! zz")
+    end)
+  end, { desc = "Gitsigns " .. dir .. " hunk" })
 end
-vim.keymap.set("n", "<M-h>", function()
-  nav_hunk("next")
-end, { desc = "Gitsigns next hunk" })
-vim.keymap.set("n", "<M-H>", function()
-  nav_hunk("prev")
-end, { desc = "Gitsigns previous hunk" })
+nav_hunk("<M-h>", "next")
+nav_hunk("<M-H>", "prev")
 
-vim.keymap.set("n", "<leader>ha", gs.stage_hunk, { desc = "Gitsigns stage hunk" })
-vim.keymap.set("n", "<leader>hr", gs.reset_hunk, { desc = "Gitsigns reset hunk" })
+local hunk_action = function(keymap, action)
+  vim.keymap.set("n", keymap, gs[action .. "_hunk"], {
+    desc = "Gitsigns " .. action .. " hunk"
+  })
+  vim.keymap.set("v", keymap, function()
+    gs[action .. "_hunk"]({ vim.fn.line("."), vim.fn.line("v") })
+  end, { desc = "Gitsigns " .. action .. " hunk (visual)" })
+end
+hunk_action("<leader>ha", "stage")
+hunk_action("<leader>hr", "reset")
 
 vim.keymap.set("n", "<leader>hd", gs.preview_hunk_inline, { desc = "Gitsigns diff hunk" })
-vim.keymap.set("n", "<leader>ht", function()
-  gs.diffthis("HEAD", {
-    vertical = true,
-    split = "belowright",
-  })
-end, { desc = "Gitsigns diff file" })
-vim.keymap.set("n", "<leader>hb", gs.blame, { desc = "Gitsigns blame file" })
 
-vim.keymap.set("n", "<leader>hc", function()
-  vim.ui.input({ prompt = "Commit message: " }, function(msg)
-    vim.fn.system({ "git", "commit", "-m", msg })
-    print("Committed: " .. msg)
-  end)
-end, { desc = "Git commit" })
+vim.keymap.set({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>")
 
-vim.keymap.set("n", "<leader>he", function()
-  vim.fn.system({ "git", "commit", "--amend", "--no-edit" })
-  local msg = vim.fn.system({ "git", "log", "-n1", "--pretty=%B" })
-  msg = vim.trim(msg)
-  print("Extended: " .. msg)
-end, { desc = "Git extend" })
+local gu = require("gitutils")
+gu.setup()
 
-require("catppuccin").setup({
-  flavour = "mocha",
-  term_colors = true,
-  transparent_background = true,
-  float = { transparent = true },
+vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
+  pattern = "*",
+  callback = require("gitutils.helpers").refresh_head
 })
 
-vim.cmd.colorscheme("catppuccin")
+vim.opt.rulerformat = '%66(%{g:gitutils_head}%= %l,%c%)'
+
+vim.keymap.set("n", "<leader>hc", gu.commit, { desc = "Gitutils commit" })
+vim.keymap.set("n", "<leader>he", gu.extend, { desc = "Gitutils extend" })
+vim.keymap.set("n", "<leader>hb", gu.checkout, { desc = "Gitutils checkout" })
+vim.keymap.set("n", "<leader>hx", gu.rebase, { desc = "Gitutils interactive rebase" })
+vim.keymap.set("n", "<leader>hv", gu.continue, { desc = "Gitutils rebase continue" })
+
+local stage_range = function(mode)
+  if mode == "v" then
+    return { vim.fn.line("."), vim.fn.line("v") }
+  end
+end
+
+for _, mode in ipairs({ "n", "v" }) do
+  vim.keymap.set(mode, "<leader>hf", function()
+    gs.stage_hunk(stage_range(mode), {}, function()
+      gu.extend()
+    end)
+  end, { desc = "Gitsigns stage and Gitutils extend" })
+end
+
+vim.keymap.set("n", "<leader>ht", gu.diffthis, { desc = "Gitutils diff buffer" })
+vim.keymap.set("n", "<leader>hg", gu.diff, { desc = "Gitutils diff repo" })
+vim.keymap.set("n", "]g", function()
+  gu.qf_diff("next")
+end, { desc = "Gitutils next diff" })
+vim.keymap.set("n", "[g", function()
+  gu.qf_diff("prev")
+end, { desc = "Gitutils prev diff" })
+
+require("kanagawa").setup({
+  transparent = true,
+  statementStyle = { bold = false },
+  overrides = function()
+    local t = {}
+    for _, key in ipairs({
+      "ModeMsg",
+      "CursorLineNr",
+      "Boolean",
+      "@keyword.operator",
+      "@string.escape",
+    }) do
+      t[key] = { bold = false }
+    end
+    return t
+  end,
+})
+
+vim.cmd.colorscheme("kanagawa")
