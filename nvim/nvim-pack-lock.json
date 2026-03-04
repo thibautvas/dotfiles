@@ -4,10 +4,6 @@
       "rev": "b19413d",
       "src": "https://github.com/saghen/blink.cmp"
     },
-    "catppuccin.nvim": {
-      "rev": "ce4a8e0",
-      "src": "https://github.com/catppuccin/nvim"
-    },
     "fzf-lua": {
       "rev": "cae96b0",
       "src": "https://github.com/ibhagwan/fzf-lua"
@@ -15,6 +11,14 @@
     "gitsigns.nvim": {
       "rev": "5813e48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "gitutils.nvim": {
+      "rev": "9228406",
+      "src": "https://github.com/thibautvas/gitutils.nvim"
+    },
+    "kanagawa.nvim": {
+      "rev": "aef7f5c",
+      "src": "https://github.com/rebelot/kanagawa.nvim"
     },
     "none-ls.nvim": {
       "rev": "9a5d95c",
