@@ -39,9 +39,6 @@ vim.keymap.set("v", "<leader>y", [["+y]], { desc = "yank to system clipboard" })
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { desc = "escape out of terminal mode" })
 
 require("blink.cmp").setup({
-  fuzzy = {
-    prebuilt_binaries = { force_version = "v1.8.0" },
-  },
   keymap = { preset = "default" },
   appearance = { use_nvim_cmp_as_default = true },
   signature = { enabled = true },
@@ -76,24 +73,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.lsp.enable({ "ty", "ruff" })
 vim.diagnostic.config({ virtual_text = true })
 
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "bash", "lua", "nix", "python", "sql" },
-  auto_install = false,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = { "markdown" },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-      },
-    },
-  },
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "bash", "nix", "python", "sql" },
+  group = vim.api.nvim_create_augroup("treesitter-highlight", { clear = true }),
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
 })
+
+for textobject, keymap in pairs({
+  ["@function.inner"] = "if",
+  ["@function.outer"] = "af",
+}) do
+  vim.keymap.set({ "o", "x" }, keymap, function()
+    require("nvim-treesitter-textobjects.select").select_textobject(textobject, "textobjects")
+  end, { desc = "Treesitter select " .. textobject })
+end
 
 local fl = require("fzf-lua")
 fl.setup({
