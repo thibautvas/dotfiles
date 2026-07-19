@@ -5,6 +5,7 @@ set -euo pipefail
 # set NODOT to skip installation of dotfiles
 # set NOBIN to skip installation of following binaries in PATH
 # set NOVIM to skip installation of nvim and plugins altogether
+DOTFILES_REF="${1:-main}"
 FZF_VERSION="0.72.0"
 FD_VERSION="10.4.2"
 RG_VERSION="15.1.0"
@@ -17,13 +18,14 @@ fetch() {
 }
 
 TMPDIR=$(mktemp -d)
-fetch "https://github.com/thibautvas/dotfiles/archive/refs/heads/main.tar.gz" | tar -xz -C "$TMPDIR"
+fetch "https://github.com/thibautvas/dotfiles/archive/${DOTFILES_REF}.tar.gz" | tar -xz -C "$TMPDIR"
+DOTSDIR=($TMPDIR/dotfiles-*)
 
 # dotfiles proper
 if [[ -z "${NODOT+x}" ]]; then
   mkdir -p "$HOME/.config"
   for dir in bash git nvim; do
-    cp -r "$TMPDIR/dotfiles-main/$dir" "$HOME/.config"
+    cp -r "$DOTSDIR/$dir" "$HOME/.config"
   done
   ln -sf ".config/bash/bashrc" "$HOME/.bashrc"
 fi
@@ -49,7 +51,7 @@ if [[ -z "${NOVIM+x}" ]]; then
   fetch "https://github.com/jqlang/jq/releases/latest/download/jq-linux-amd64" |
     install -m 755 /dev/stdin "$TMPDIR/jq"
 
-  "$TMPDIR/jq" -r '.plugins[] | "\(.src) \(.rev)"' "$TMPDIR/dotfiles-main/nvim/nvim-pack-lock.json" |
+  "$TMPDIR/jq" -r '.plugins[] | "\(.src) \(.rev)"' "$DOTSDIR/nvim/nvim-pack-lock.json" |
     while read -r src rev; do
       fetch "$src/archive/$rev.tar.gz" | tar -xz -C "$HOME/.local/share/nvim/site/pack/core/start"
       if [[ "$src" == "https://github.com/saghen/blink.cmp" ]]; then
