@@ -108,7 +108,7 @@ set_custom_prompt() {
     active_shell="(${active_shell#*-}-env) "
   fi
 
-  PS1="$user_color$active_user $dir_color$active_dir\$ \[\e[0m\]"
+  PS1="$active_shell$user_color$active_user $dir_color$active_dir\$ \[\e[0m\]"
 }
 
 PROMPT_COMMAND='set_custom_prompt'
