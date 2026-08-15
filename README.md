@@ -1,5 +1,9 @@
 # dotfiles
 
+2026 update:
+  - These dotfiles have been fully integrated into
+  [nix-config/dotfiles](https://github.com/thibautvas/nix-config/tree/main/dotfiles).
+
 2025 rewrite:
   - These dotfiles have been made minimal by design, they only configure a shell, a vcs, and an editor.
   - See [nix-config](https://github.com/thibautvas/nix-config) for other config files.
