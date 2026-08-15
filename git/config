@@ -2,6 +2,6 @@
 	name = thibautvas
 	email = thibaut.vas@gmail.com
 [init]
-	defaultBranch = "main"
+	defaultBranch = main
 [push]
 	autoSetupRemote = true
